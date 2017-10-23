@@ -7,7 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="154,148,0,0" VerticalAlignment="Top"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="233*"/>
+            <RowDefinition Height="49*"/>
+        </Grid.RowDefinitions>
+        <DataGrid HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"/>
+                <DataGridTextColumn Header="Group"/>
+                <DataGridTextColumn Header="Sales Price"/>
+                <DataGridTextColumn Header="Purchase Price"/>
+                <DataGridTextColumn Header="On Stock"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
