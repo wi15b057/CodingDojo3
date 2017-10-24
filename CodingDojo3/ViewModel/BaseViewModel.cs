@@ -4,18 +4,15 @@ namespace CodingDojo3.ViewModel
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
-        #region INotifyPropertyChanged Members   
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnChange(string propertyname)
+        public void OnChange(string propname)
         {
-            if(PropertyChanged != null)
+            if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
+                PropertyChanged(this, new PropertyChangedEventArgs(propname));
             }
         }
-
-        #endregion
     }
 }

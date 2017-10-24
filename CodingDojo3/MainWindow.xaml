@@ -4,15 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodingDojo3"
-        xmlns:Converters="clr-namespace:CodingDojo3.Converters"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:CodingDojo3.ViewModel"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:converters="clr-namespace:CodingDojo3.Converters"
+        Title="MainWindow" Height="450" Width="555">
 
     <Window.DataContext>
-        <vm:MainViewModel />
+        <vm:MainViewModel/>
     </Window.DataContext>
-
+    
+    <Window.Resources>
+        <converters:IntTobrushConverter x:Key ="IntTobrush"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -22,16 +26,31 @@
 
         <ComboBox x:Name="comboBox" Height="25" Width="150" Grid.Row="0" ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedCurrency}" Margin="0,0,330,0"/>
 
-        <DataGrid HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" AutoGenerateColumns="False" 
-                  ItemsSource="{Binding Items}" SelectionChanged="DataGrid_SelectionChanged"
-                  >
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" AutoGenerateColumns="False" 
+                  ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}">
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Group" />
+                <DataGridTextColumn Header="Group" Binding="{Binding Group}" />
                 <DataGridTextColumn Header="Sales Price" Binding="{Binding SalesPrice}" />
-                <DataGridTextColumn Header="Purchase Price"/>
-                <DataGridTextColumn Header="On Stock"/>
+                <DataGridTextColumn Header="Purchase Price" Binding="{Binding PurchasePrice}"/>
+                <DataGridTemplateColumn Header="OnStock">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Height="12" Width="12" Fill="{Binding OnStock, Converter={StaticResource IntTobrush}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Button Grid.Row="2" Height="30" Width="70" Content="Delete" Background="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}"
+                Command="{Binding OnButtonClickedCommand}" HorizontalAlignment="Left" 
+                VerticalAlignment="Top"  Margin="430,14,0,0"/>
+
+        <Button Grid.Row="2" Height="30" Width="70" Content="Edit" Background="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}"
+                Command="{Binding OnButtonClickedCommand}" HorizontalAlignment="Left" 
+                VerticalAlignment="Top"  Margin="350,14,0,0"/>
+
     </Grid>
 </Window>
